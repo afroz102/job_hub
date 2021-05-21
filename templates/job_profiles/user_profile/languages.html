@@ -1,0 +1,185 @@
+<!-- Language  section -->
+
+<div class="row mt-4 mb-0">
+    <div class="col d-flex align-self-center">
+        <h5 class="font-medium float-left">Language
+            {% if userProfile == loggedInUser %}
+            <h5 class="d-inline" style="cursor: pointer;">
+                <i class="fas fa-plus text-primary custom_icon_class ml-2" data-toggle="modal"
+                    data-target="#add_new_language"></i>
+            </h5>
+            <!--Add New language button modal content -->
+            <div id="add_new_language" class="modal" tabindex="-1" role="dialog" aria-labelledby="vcenter"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header text-center bg-primary">
+                            <h3 class="modal-title font-weight-bold text-white" id="vcenter">
+                                Add a New Language</h3>
+                            <button type="button" class="close text-warning custom_icon_class" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card my-0 py-0">
+                                        <form action="{% url 'add_new_language' %}" method="POST">
+                                            {% csrf_token %}
+                                            <div class="form-body">
+                                                <div class="card-body my-0 py-0">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Language</label>
+                                                                {{languageForm.language}}
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Fluency
+                                                                    (Percentage)</label>
+                                                                {{languageForm.fluency}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--/row-->
+                                                </div>
+
+                                                <div class="form-actions">
+                                                    <div class="card-body pull-right my-0 py-0">
+                                                        <button type="button"
+                                                            class="btn btn-warning waves-effect custom_btn_class mx-2"
+                                                            data-dismiss="modal">Cancel</button>
+
+                                                        <button type="submit"
+                                                            class="btn btn-success waves-effect custom_btn_class mx-2">
+                                                            <i class="fa fa-check"></i> Save
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal content -->
+            {% endif %}
+        </h5>
+
+
+    </div>
+</div>
+<hr class="mt-0 mb-1">
+
+{% for item in languagesKnown %}
+<div class="card py-0 my-0 pl-0">
+    <div class="card-body py-0 my-0 pl-0">
+        <h6 class="mt-3">{{item.language}}
+
+            {% if userProfile == loggedInUser %}
+            <i class="fas fa-edit text-warning custom_icon_class ml-3" data-toggle="modal" style="cursor: pointer;"
+                data-target="#update_language_{{item.id}}"></i>
+            {% endif %}
+
+            <span class="mt-3 pull-right">{{item.fluency}}%</span>
+        </h6>
+        <div class="progress">
+            <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0"
+                aria-valuemax="100" style="width:{{item.fluency}}%; height:6px;">
+                <span class="sr-only">{{item.fluency}}% Complete</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if userProfile == loggedInUser %}
+<!--Update Language button modal content -->
+<div id="update_language_{{item.id}}" class="modal" tabindex="-1" role="dialog" aria-labelledby="vcenter"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h3 class="modal-title font-weight-bold" id="vcenter">
+                    Update Language_</h3>
+
+                <div class="d-flex justify-content-around">
+                    <!-- Delete language button-->
+                    <form action="{% url 'delete_language' item.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit"
+                            class="btn btn-sm waves-effect waves-light btn-danger custom_btn_class ml-auto mr-4">
+                            <i class="fas fa-trash mr-2"></i>Delete
+                        </button>
+                    </form>
+
+                    <button type="button" class="close text-warning custom_icon_class" data-dismiss="modal"
+                        aria-hidden="true">×</button>
+
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card my-0 py-0">
+                            <form action="{% url 'update_language' item.id %}" method="POST">
+                                {% csrf_token %}
+
+                                <div class="form-body">
+                                    <div class="card-body my-0 py-0">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Language</label>
+                                                    <input type="text" name="language" class="form-control"
+                                                        value="{{item.language}}" required="">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Fluency
+                                                        (Percentage)</label>
+                                                    <input type="text" name="fluency" value="{{item.fluency}}"
+                                                        class="form-control" required="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <div class="card-body pull-right my-0 py-0">
+                                            <button type="button"
+                                                class="btn btn-warning waves-effect custom_btn_class mx-2"
+                                                data-dismiss="modal">Cancel</button>
+
+                                            <button type="submit"
+                                                class="btn btn-success waves-effect custom_btn_class mx-2">
+                                                <i class="fa fa-check"></i> Save
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+
+{% endfor %}

@@ -1,0 +1,342 @@
+{% load static %}
+<div class="card m-0 p-0">
+    <div class="card-body">
+
+        <!-- profession title section starts-->
+        <div class="row mt-2">
+            <div class="col d-flex align-self-center">
+                <h4 class="font-medium float-left align-self-center">Job Title
+
+                    {% if userProfile == loggedInUser %}
+                    <h4 class="d-inline" style="cursor: pointer;">
+                        <i class="fas fa-edit text-warning custom_icon_class ml-4" data-toggle="modal"
+                            data-target="#update_profession_title"></i>
+                    </h4>
+                    <!--Update About me button modal content -->
+                    <div id="update_profession_title" class="modal" tabindex="-1" role="dialog"
+                        aria-labelledby="vcenter" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header text-center bg-primary">
+                                    <h3 class="modal-title font-weight-bold text-white" id="vcenter">
+                                        Update Job Title</h3>
+                                    <button type="button" class="close text-warning custom_icon_class"
+                                        data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{% url 'update_profession_title' %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="profession_title">Job
+                                                        Title</label>
+                                                    <input type="text" name="profession_title"
+                                                        value="{{userProfile.profession_title}}" class="form-control"
+                                                        id="profession_title">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="custom_btn_class btn btn-warning waves-effect float-left"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit"
+                                                class="custom_btn_class btn btn-danger waves-effect float-right">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal content -->
+                    {% endif %}
+
+                </h4>
+
+            </div>
+
+        </div>
+        <hr class="mt-0 mb-2">
+
+        <p class="mt-3">
+            {{userProfile.profession_title}}
+        </p>
+        <!-- profession title section ends-->
+
+
+        <!-- About Me section starts-->
+        <div class="row mt-5">
+            <div class="col d-flex align-self-center">
+                <h4 class="font-medium float-left align-self-center">About Me
+
+                    {% if userProfile == loggedInUser %}
+                    <h4 class="d-inline" style="cursor: pointer;">
+                        <i class="fas fa-edit text-warning custom_icon_class  ml-4" data-toggle="modal"
+                            data-target="#update_about_me"></i>
+                    </h4>
+                    <!--Update About me button modal content -->
+                    <div id="update_about_me" class="modal bs-example-modal-lg" tabindex="-1" role="dialog"
+                        aria-labelledby="vcenter" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header text-center bg-primary">
+                                    <h3 class="modal-title font-weight-bold text-white" id="vcenter">
+                                        Update About me</h3>
+                                    <button type="button" class="custom_icon_class close text-warning"
+                                        data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{% url 'update_about_me' %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="update_about_me">About Me</label>
+                                                    <textarea name="about_me" id="update_about_me" class="form-control"
+                                                        rows="5">{{userProfile.about_me}}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="custom_btn_class btn btn-warning waves-effect float-left"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit"
+                                                class="custom_btn_class btn btn-danger waves-effect float-right">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal content -->
+                    {% endif %}
+
+                </h4>
+
+            </div>
+
+        </div>
+        <hr class="mt-0 mb-2">
+
+        <p class="mt-3">
+            {{userProfile.about_me}}
+        </p>
+        <!-- About Me section ends-->
+
+
+
+        <!-- My Portfolio section starts-->
+        <div class="row mt-5">
+            <div class="col d-flex align-self-center">
+                <h4 class="font-medium float-left align-self-center">My Portfolio
+
+                    {% if userProfile == loggedInUser %}
+                    <h4 class="d-inline" style="cursor: pointer;">
+                        <i class="fas fa-plus text-primary custom_icon_class ml-4" data-toggle="modal"
+                            data-target="#add_portfolio_content"></i>
+                    </h4>
+                    <!--Add Portfolio button modal content -->
+                    <div id="add_portfolio_content" class="modal bs-example-modal-lg" tabindex="-1" role="dialog"
+                        aria-labelledby="vcenter" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header text-center bg-primary">
+                                    <h3 class="modal-title font-weight-bold text-white" id="vcenter">
+                                        Update Your Portfolio</h3>
+                                    <button type="button" class="custom_icon_class close text-warning"
+                                        data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{% url 'add_portfolio_content' %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+
+                                                    {{summerNoteModelForm|safe}}
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="custom_btn_class btn btn-warning waves-effect float-left"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit"
+                                                class="custom_btn_class btn btn-danger waves-effect float-right">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal content -->
+                    {% endif %}
+
+                </h4>
+
+            </div>
+
+        </div>
+        <hr class="mt-0 mb-2">
+        <div class="card">
+            {% for item in portfolio_obj_list %}
+            <div class="card-body bg-light mb-4 border-bottom">
+                <h4 class="card-title">Title: {{item.portfolio.title}}</h4>
+                <p class="card-text">
+                    {{item.portfolio.content|truncatechars_html:100|safe }}
+                </p>
+                <h4 class="d-inline" style="cursor: pointer;">
+
+                    <i class="custom_icon_class mdi mdi-open-in-app text-primary float-right mx-2" data-toggle="modal"
+                        data-target="#view_portfolio_{{item.portfolio.id}}"></i>
+
+                    <!--View portfolio button modal content -->
+                    <div id="view_portfolio_{{item.portfolio.id}}" class="modal bs-example-modal-lg" tabindex="-1"
+                        role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header text-center bg-primary">
+                                    <h3 class="modal-title font-weight-bold text-white" id="vcenter">
+                                        Portfolio Details</h3>
+                                    <button type="button" class="custom_icon_class  close text-warning"
+                                        data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body" id="update_portfolio_form_id">
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4 class="card-title">Title: {{item.portfolio.title}}</h4>
+                                            <p class="card-text">
+                                                {{item.portfolio.content|safe }}
+                                            </p>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                            class="custom_btn_class btn btn-warning waves-effect float-left"
+                                            data-dismiss="modal">Cancel</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal content -->
+
+
+                    {% if userProfile == loggedInUser %}
+
+                    <i class="custom_icon_class fas fa-edit text-warning float-right update_portfolio_btn mx-2"
+                        data-p_id="{{item.portfolio.id}}" data-toggle="modal"
+                        data-target="#update_portfolio_{{item.portfolio.id}}"></i>
+
+
+                    <!--Update portfolio button modal content -->
+                    <div id="update_portfolio_{{item.portfolio.id}}" class="modal bs-example-modal-lg" tabindex="-1"
+                        role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header text-center bg-primary">
+                                    <h3 class="modal-title font-weight-bold text-white" id="vcenter">
+                                        Update Portfolio</h3>
+                                    <button type="button" class="custom_icon_class close text-warning"
+                                        data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body" id="update_portfolio_form_id">
+
+                                    <form action="{% url 'update_portfolio_by_id' item.portfolio.id %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+
+                                                    <!-- {{form|safe}} -->
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <label for="id_title"
+                                                                    class="font-weight-bold">Title:</label>
+                                                                <input type="text" name="title"
+                                                                    value="{{item.portfolio.title}}"
+                                                                    class="form-control" autofocus="autofocus"
+                                                                    maxlength="100" id="id_title">
+                                                                <label for="id_content"
+                                                                    class="font-weight-bold">Content:</label>
+                                                                <textarea name="content"
+                                                                    class="form-control control-label font-weight-bold"
+                                                                    id="summernote_content_{{item.portfolio.id}}">{{item.portfolio.content|safe}}</textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="custom_btn_class btn btn-warning waves-effect float-left"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit"
+                                                class="custom_btn_class btn btn-danger waves-effect float-right">Update</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal content -->
+                    {% endif %}
+                </h4>
+            </div>
+
+            {% endfor %}
+        </div>
+        <!-- End My Portfolio section-->
+    </div>
+</div>
+
+{% if userProfile == loggedInUser %}
+<div class="card-footer text-center mt-4" style="width: 100%;">
+    {% if userProfile.is_verified %}
+    <button class="btn btn-lg waves-effect waves-light btn-outline-success px-5" data-toggle="tooltip"
+        data-placement="top" title="Your Account is verified">
+        Verified
+        <h3 class="d-inline ml-2">
+            <i class="mdi mdi-check-circle"></i>
+        </h3>
+    </button>
+
+    {% elif userProfile.sent_for_verification %}
+    <button class="btn btn-lg waves-effect waves-light btn-outline-warning px-5" data-toggle="tooltip"
+        data-placement="top"
+        title="Your account verification is under process. Please wait for admin to approve your account.">
+        Verification request sent
+        <h3 class="d-inline ml-2">
+            <i class="mdi mdi-alert-circle"></i>
+        </h3>
+    </button>
+    {% else %}
+    <form action="{% url 'send_verification_request' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="custom_btn_class btn btn-lg waves-effect waves-light btn-outline-danger px-5"
+            data-toggle="tooltip" data-placement="top"
+            title="Your Account is not Verified. Fill all the details and Click this button to send a verification request.">
+            Send Verification Request
+            <h3 class="d-inline ml-2">
+                <i class="mdi mdi-help-circle"></i>
+            </h3>
+        </button>
+    </form>
+    {% endif %}
+</div>
+{% endif %}

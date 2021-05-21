@@ -1,0 +1,311 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block title %}
+<title>{{loggedInUser.full_name}}</title>
+{% endblock title %}
+
+
+{% block css %}
+<link href="{% static 'assets/extra-libs/toastr/dist/build/toastr.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/libs/summernote/dist/summernote-bs4.css' %}" rel="stylesheet">
+<link href="{% static 'assets/libs/dropzone/dist/min/dropzone.min.css' %}" rel="stylesheet">
+
+<style>
+    .custom_btn_class:hover {
+        transform: scale(1.1);
+        transition: .2s ease-out;
+    }
+
+    .custom_icon_class:hover {
+        transform: scale(1.5);
+        transition: .3s ease-out;
+    }
+</style>
+{% endblock css %}
+
+
+{% block page_content %}
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-4 col-xlg-3 col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <center class="">
+                    {% if userProfile.profile_img %}
+                    <img src="{{userProfile.profile_img.url}}" class="rounded-circle" width="150" />
+                    {% else %}
+                    <img src="{% static 'images/profile_img/profile_dum.jpg' %}" class="rounded-circle" width="150" />
+                    {% endif %}
+
+                    {% if userProfile == loggedInUser %}
+                    <!--Camera Icon To update Profile pic -->
+                    <h3 class="d-inline" style="margin-left: -15px; cursor: pointer;">
+                        <i class="fas fa-camera custom_icon_class" data-toggle="modal"
+                            data-target="#update_profile_image"></i>
+                    </h3>
+
+                    <!--Update Profile Image button modal content -->
+                    <div id="update_profile_image" class="modal" tabindex="-1" role="dialog" aria-labelledby="vcenter"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header text-center bg-primary">
+                                    <h3 class="modal-title font-weight-bold text-white" id="vcenter">Update Profile
+                                        Image
+                                    </h3>
+                                    <button type="button" class="close text-warning custom_icon_class"
+                                        data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="card py-0 my-0">
+                                                <center class="mb-4">
+                                                    {% if userProfile.profile_img %}
+                                                    <h2>Profile Photo Upload</h2>
+                                                    <img src="{{userProfile.profile_img.url}}" class="rounded-circle"
+                                                        width="150" />
+                                                    {% else %}
+                                                    <h2>Defaul Profile Image</h2>
+                                                    <img src="{% static 'images/profile_img/profile_dum.jpg' %}"
+                                                        class="rounded-circle" width="150" />
+                                                    {% endif %}
+                                                </center>
+                                                <form action="{% url 'update_profile_img' %}" method="post"
+                                                    enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <div class="card" style="width: 70%; margin-left: 15%;">
+                                                        <div class="card-body py-0">
+                                                            <div class="input-group">
+                                                                <div class="custom-file">
+                                                                    <input type="file" name="profile_img"
+                                                                        class="custom-file-input" id="profile_img"
+                                                                        accept="image/*">
+                                                                    <label class="custom-file-label form-control"
+                                                                        for="inputGroupFile04">Choose</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="modal-footer my-0">
+                                                        <button type="button"
+                                                            class="custom_btn_class btn btn-warning waves-effect float-left"
+                                                            data-dismiss="modal">Cancel</button>
+                                                        <button type="submit"
+                                                            class="custom_btn_class btn btn-danger waves-effect float-right">Update</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Model content-->
+                    {% endif %}
+
+
+
+                    <h4 class="card-title mt-2">{{userProfile.full_name}}
+                        <span>
+                            <h4 class="d-inline" style="cursor: pointer;">
+                                {% if userProfile.is_verified %}
+                                <i class="mdi mdi-check-circle text-success" data-toggle="tooltip" data-placement="top"
+                                    title="Account verified"></i>
+
+                                {% elif userProfile.sent_for_verification %}
+
+                                <i class="mdi mdi-alert-circle text-warning" data-toggle="tooltip" data-placement="top"
+                                    title="Account verification under process."></i>
+                                {% else %}
+                                <i class="mdi mdi-help-circle text-danger" data-toggle="tooltip" data-placement="top"
+                                    title="Account not Verified. Request for verification in profile section after submitting all the details."></i>
+                                {% endif %}
+                            </h4>
+                        </span>
+                        {% if userProfile == loggedInUser %}
+                        <span>
+                            <h4 class="d-inline" style="cursor: pointer;">
+                                <i class="fas fa-edit text-warning custom_icon_class ml-2" data-toggle="modal"
+                                    data-target="#update_name"></i>
+                            </h4>
+                        </span>
+
+                        <!--Update User Full Name button modal content -->
+                        <div id="update_name" class="modal" tabindex="-1" role="dialog" aria-labelledby="vcenter"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center bg-primary">
+                                        <h3 class="modal-title font-weight-bold text-white" id="vcenter">Update Name
+                                        </h3>
+                                        <button type="button" class="close text-warning custom_icon_class"
+                                            data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="card py-0 my-0">
+                                                    <form action="{% url 'update_name' %}" method="post">
+                                                        {% csrf_token %}
+                                                        <div class="row">
+                                                            <div class="form-group col-8">
+                                                                <label class="control-label float-left"
+                                                                    for="first_name">First
+                                                                    Name</label>
+                                                                <input type="text" name="first_name"
+                                                                    value="{{userProfile.user.first_name}}"
+                                                                    class="form-control" id="first_name">
+                                                            </div>
+                                                            <div class="form-group col-8">
+                                                                <label class="control-label float-left"
+                                                                    for="last_name">Last
+                                                                    Name</label>
+                                                                <input type="text" name="last_name"
+                                                                    value="{{userProfile.user.last_name}}"
+                                                                    class="form-control" id="last_name">
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button"
+                                                                class="custom_btn_class btn btn-warning waves-effect float-left"
+                                                                data-dismiss="modal">Cancel</button>
+                                                            <button type="submit"
+                                                                class="custom_btn_class btn btn-danger waves-effect float-right">Update</button>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Model content-->
+
+                        {% endif %}
+                    </h4>
+                    <h6 class="card-subtitle">{{userProfile.user.email}}</h6>
+                </center>
+            </div>
+
+            <hr class="mt-0 mb-1 border-secondary">
+
+            <div class="card-body mt-0">
+                <!-- Personal details section starts-->
+                {% include 'job_profiles/user_profile/personal_details.html' %}
+
+
+                <!-- Education details section starts-->
+                {% include 'job_profiles/user_profile/education_details.html' %}
+
+                <!-- Skills list -->
+                {% include 'job_profiles/user_profile/skills.html' %}
+
+                <!-- Languages list -->
+                {% include 'job_profiles/user_profile/languages.html' %}
+
+                <!-- Prefered Locations list -->
+                {% include 'job_profiles/user_profile/prefered_locations.html' %}
+
+
+                <div class="mt-4"></div>
+                <small class="text-muted db">Social Profile</small>
+                <br />
+                <button class="custom_btn_class btn btn-circle btn-secondary">
+                    <a href="https://www.facebook.com/" target="_blank" class="text-white"
+                        style="text-decoration: none;">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </button>
+                <button class="custom_btn_class btn btn-circle btn-secondary">
+                    <a href="https://www.twitter.com/" target="_blank" class="text-white"
+                        style="text-decoration: none;">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </button>
+                <button class="custom_btn_class btn btn-circle btn-secondary">
+                    <a href="https://www.youtube.com/" target="_blank" class="text-white"
+                        style="text-decoration: none;">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-8 col-xlg-9 col-md-7">
+        <div class="card px-4">
+            <div class="card-body">
+                <!-- Profile Tab -->
+                {% include 'job_profiles/user_profile/profile_tab.html' %}
+            </div>
+
+        </div>
+    </div>
+    <!-- Column -->
+</div>
+
+
+
+
+
+
+{% endblock page_content %}
+
+
+{% block custom_js %}
+
+<script src="{% static 'assets/extra-libs/toastr/dist/build/toastr.min.js' %}"></script>
+<script src="{% static 'assets/libs/sweetalert2/dist/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'assets/libs/sweetalert2/sweet-alert.init.js' %}"></script>
+<script src="{% static 'assets/libs/summernote/dist/summernote-bs4.min.js' %}"></script>
+<script src="{% static 'assets/libs/dropzone/dist/min/dropzone.min.js' %}"></script>
+<script src="{% static 'dist/js/custom/deals/mails.js' %}"></script>
+<script>
+    $(document).ready(() => {
+        // {% if has_credentials %}
+        fetchNdisplayThreads('inbox', 'inbox');
+        // {% endif %}
+    })
+</script>
+<!-- This Page JS -->
+<!-- <script src="{% static 'dist/js/pages/email/email.js' %}"></script> -->
+
+
+
+<script>
+    $('.nav-item').removeClass('active');
+    $('.nav-item-1').addClass('active');
+
+    $(document).ready(function () {
+        $('.update_portfolio_btn').each(function (i, elem) {
+            console.log($(elem).data('p_id'));
+            textAreaId = `summernote_content_${$(elem).data('p_id')}`;
+            console.log("textAreaId: ", textAreaId);
+            var id = $(`#${textAreaId}`);
+            // var sid = document.getElementById(textAreaId);
+            // console.log(`sid: `, sid);
+            // console.log("id: ", id)
+            id.summernote();
+        })
+    });
+</script>
+<script>
+    $('#summernote').summernote({
+        placeholder: 'Type your email Here',
+        tabsize: 2,
+        height: 300,
+        followingToolbar: false
+    });
+</script>
+{% endblock custom_js %}

@@ -1,0 +1,105 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block title %}
+<title>Portfolio Profile</title>
+{% endblock title %}
+
+{% block css %}
+<style>
+    .custom_btn_class :hover {
+        transform: scale(1.1);
+        transition: .2s ease-out;
+    }
+</style>
+{% endblock css %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col">
+
+        <div class="card">
+            <div class="card-body bg-light mb-4 border-bottom">
+                <h3 class="card-title">Title: {{portfolio.title}}</h3>
+                <p class="card-text">
+                    {{portfolio.content|safe }}
+                </p>
+                <button class="custom_btn_class btn btn-outline-warning waves-effect float-right px-2"
+                    data-toggle="modal" data-target="#update_portfolio">
+                    <i class="fas fa-edit mr-2"></i>Update
+                </button>
+            </div>
+
+            <!--Update portfolio button modal content -->
+            <div id="update_portfolio" class="modal bs-example-modal-lg" tabindex="-1" role="dialog"
+                aria-labelledby="vcenter" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header text-center bg-primary">
+                            <h3 class="modal-title font-weight-bold text-white" id="vcenter">
+                                Update Portfolio</h3>
+                            <button type="button" class="custom_btn_class close text-warning" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body" id="update_portfolio_form_id">
+
+                            <form action="{% url 'profile_portfolio' portfolio.id %}" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+
+                                            <!-- {{form|safe}} -->
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+
+                                                        <label for="id_title" class="font-weight-bold">Title:</label>
+                                                        <input type="text" name="title" value="{{portfolio.title}}"
+                                                            class="form-control" autofocus="autofocus" maxlength="100"
+                                                            id="id_title">
+                                                        <label for="id_content"
+                                                            class="font-weight-bold">Content:</label>
+                                                        <textarea name="content" cols="40" rows="10"
+                                                            class="control-label font-weight-bold"
+                                                            id="summernote_content">{{portfolio.content|safe}}</textarea>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button"
+                                        class="custom_btn_class btn btn-warning waves-effect float-left"
+                                        data-dismiss="modal">Cancel</button>
+                                    <button type="submit"
+                                        class="custom_btn_class btn btn-danger waves-effect float-right">Update</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal content -->
+        </div>
+
+
+
+    </div>
+</div>
+{% endblock page_content %}
+
+
+{% block custom_js %}
+<script>
+    $(document).ready(function () {
+        $('#summernote_content').summernote();
+    });
+</script>
+{% endblock custom_js %}

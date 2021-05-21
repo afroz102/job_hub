@@ -1,0 +1,93 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+{% block css %}
+<style>
+    .fas:hover {
+        transform: scale(1.5);
+        transition: .3s ease-out;
+    }
+
+    .custom_btn_class:hover {
+        transform: scale(1.1);
+        transition: .2s ease-out;
+    }
+</style>
+{% endblock css %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-6 mx-auto">
+        <nav class="navbar navbar-light">
+            <form class="form-inline" style="width: 100%;">
+                <input class="form-control" style="width: 80%; " type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" style="width: 20%;" type="submit">Search</button>
+            </form>
+        </nav>
+    </div>
+</div>
+
+
+<div class="row mt-4">
+    <div class="col-md-8 mx-auto">
+        {% for item in user_obj_list %}
+        {% if item.userProfile != loggedInUser %}
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="card-text">
+                    <div class="row">
+                        <div class="col-4">
+                            <center class="">
+                                {% if item.userProfile.profile_img %}
+                                <img src="{{item.userProfile.profile_img.url}}" class="rounded" width="120" />
+                                {% else %}
+                                <img src="{% static 'images/profile_img/profile_dum.jpg' %}" class="rounded"
+                                    width="120" />
+                                {% endif %}
+                                </h4>
+                            </center>
+                        </div>
+                        <div class="col-8">
+                            <h3 class="card-title">{{item.userProfile.full_name}}</h3>
+                            <div class="card-text">
+                                <p>{{item.userProfile.profession_title}}</p>
+                                <p>{{item.userProfile.about_me|truncatechars:100}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="text-muted">Industrial/Technical Skills:</h5>
+                                {% for skill in item.skills %}
+                                {% if item.skills.0 == skill %}
+                                <span>{{skill}}</span>
+                                {% else %}
+                                <span>, {{skill}}</span>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <a href="{% url 'user_profile_by_id' item.userProfile.id %}"
+                    class="custom_btn_class btn btn-sm waves-effect btn-outline-primary float-right px-4 py-1 btn-rounded">View
+                    Profile</a>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock page_content %}

@@ -1,0 +1,318 @@
+<div class="row my-0">
+    <div class="col d-flex align-self-center">
+        <h5 class="font-medium float-left">Personal Details</h5>
+    </div>
+</div>
+<hr class="mt-0 mb-1">
+
+<!-- Phone -->
+<div class="mt-2 mb-0">
+    <h6 class="d-inline">Phone: </h6>
+    <small class="ml-4">
+        <span class="text-muted mr-4">{{userProfile.phone}}</span>
+
+        {% if userProfile == loggedInUser %}
+        <h5 class="d-inline" style="cursor: pointer;">
+            <i class="fas fa-edit text-warning custom_icon_class" data-toggle="modal" data-target="#update_phone"></i>
+        </h5>
+        {% endif %}
+
+    </small>
+    {% if userProfile == loggedInUser %}
+    <!--Update Phone button modal content -->
+    <div id="update_phone" class="modal" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center bg-primary">
+                    <h3 class="modal-title font-weight-bold text-white" id="vcenter">Update Phone Detail</h3>
+                    <button type="button" class="close text-warning custom_icon_class" data-dismiss="modal"
+                        aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card py-0 my-0">
+                                <form action="{% url 'update_phone' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-body">
+                                        <div class="card-body py-0 my-0">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label font-weight-bold">Phone</label>
+                                                        <input type="text" name="phone" class="form-control"
+                                                            value="{{userProfile.phone}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/row-->
+                                        </div>
+
+                                        <div class="form-actions">
+                                            <div class="card-body my-0 py-0 pull-right">
+                                                <button type="button"
+                                                    class="btn btn-warning waves-effect custom_btn_class mx-2"
+                                                    data-dismiss="modal">Cancel</button>
+
+                                                <button type="submit"
+                                                    class="btn btn-success waves-effect custom_btn_class mx-2">
+                                                    <i class="fa fa-check"></i> Save
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Model content-->
+    {% endif %}
+</div>
+
+
+
+
+
+
+<!-- Location -->
+<div class="mt-2 mb-0">
+    <h6 class="d-inline">Location: </h6>
+    <small class="ml-4">
+        <span class="text-muted mr-4">{{userProfile.location}}</span>
+
+        {% if userProfile == loggedInUser %}
+        <h5 class="d-inline" style="cursor: pointer;">
+            <i class="fas fa-edit text-warning custom_icon_class" data-toggle="modal"
+                data-target="#update_location"></i>
+        </h5>
+        {% endif %}
+    </small>
+
+
+    {% if userProfile == loggedInUser %}
+    <!--Update Location button modal content -->
+    <div id="update_location" class="modal" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center bg-primary">
+                    <h3 class="modal-title font-weight-bold text-white" id="vcenter">Update Location</h3>
+                    <button type="button" class="close text-warning custom_icon_class" data-dismiss="modal"
+                        aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card py-0 my-0">
+                                <form action="{% url 'update_location' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-body">
+                                        <div class="card-body py-0 my-0">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label font-weight-bold">Location</label>
+                                                        <input type="text" name="location" class="form-control"
+                                                            value="{{userProfile.location}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/row-->
+                                        </div>
+
+                                        <div class="form-actions">
+                                            <div class="card-body my-0 py-0 pull-right">
+                                                <button type="button"
+                                                    class="btn btn-warning waves-effect custom_btn_class mx-2"
+                                                    data-dismiss="modal">Cancel</button>
+
+                                                <button type="submit"
+                                                    class="btn btn-success waves-effect custom_btn_class mx-2">
+                                                    <i class="fa fa-check"></i> Save
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Model content-->
+    {% endif %}
+</div>
+
+
+
+
+
+
+
+<!-- Age -->
+<div class="mt-2 mb-0">
+    <h6 class="d-inline">Age: </h6>
+    <small class="ml-4">
+        <span class="text-muted mr-4">{{userProfile.age}}</span>
+
+        {% if userProfile == loggedInUser %}
+        <h5 class="d-inline" style="cursor: pointer;">
+            <i class="fas fa-edit text-warning custom_icon_class" data-toggle="modal" data-target="#update_age"></i>
+        </h5>
+        {% endif %}
+    </small>
+
+    {% if userProfile == loggedInUser %}
+    <!--Update Age button modal content -->
+    <div id="update_age" class="modal" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center bg-primary">
+                    <h3 class="modal-title font-weight-bold text-white" id="vcenter">Update Age</h3>
+                    <button type="button" class="close text-warning custom_icon_class" data-dismiss="modal"
+                        aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card py-0 my-0">
+                                <form action="{% url 'update_age' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-body">
+                                        <div class="card-body py-0 my-0">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label font-weight-bold">Age</label>
+                                                        <input type="text" name="age" class="form-control"
+                                                            value="{{userProfile.age}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/row-->
+                                        </div>
+
+                                        <div class="form-actions">
+                                            <div class="card-body my-0 py-0 pull-right">
+                                                <button type="button"
+                                                    class="btn btn-warning waves-effect custom_btn_class mx-2"
+                                                    data-dismiss="modal">Cancel</button>
+
+                                                <button type="submit"
+                                                    class="btn btn-success waves-effect custom_btn_class mx-2">
+                                                    <i class="fa fa-check"></i> Save
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Model content-->
+    {% endif %}
+</div>
+
+
+
+
+
+
+
+<!-- Gender -->
+<div class="mt-2 mb-0">
+    <h6 class="d-inline">Gender: </h6>
+    <small class="ml-4">
+        <span class="text-muted mr-4">{{userProfile.get_gender_display}}</span>
+
+        {% if userProfile == loggedInUser %}
+        <h5 class="d-inline" style="cursor: pointer;">
+            <i class="fas fa-edit text-warning custom_icon_class" data-toggle="modal" data-target="#update_gender"></i>
+        </h5>
+        {% endif %}
+
+    </small>
+    {% if userProfile == loggedInUser %}
+    <!--Update Gender button modal content -->
+    <div id="update_gender" class="modal" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center bg-primary">
+                    <h3 class="modal-title font-weight-bold text-white" id="vcenter">Edit Gender</h3>
+                    <button type="button" class="close text-warning custom_icon_class" data-dismiss="modal"
+                        aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card py-0 my-0">
+                                <form action="{% url 'update_gender' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-body">
+                                        <div class="card-body py-0 my-0">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label font-weight-bold">Gender</label>
+                                                        <select name="gender" class="form-control">
+                                                            {% if userProfile.gender == 'M' %}
+                                                            <option value="M" selected>Male</option>
+                                                            <option value="F">Female</option>
+                                                            <option value="O">Other</option>
+                                                            {% elif userProfile.gender == 'F'%}
+                                                            <option value="M">Male</option>
+                                                            <option value="F" selected>Female</option>
+                                                            <option value="O">Other</option>
+                                                            {% else %}
+                                                            <option value="M">Male</option>
+                                                            <option value="F">Female</option>
+                                                            <option value="O" selected>Other</option>
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/row-->
+                                        </div>
+
+                                        <div class="form-actions">
+                                            <div class="card-body my-0 py-0 pull-right">
+                                                <button type="button"
+                                                    class="btn btn-warning waves-effect custom_btn_class mx-2"
+                                                    data-dismiss="modal">Cancel</button>
+
+                                                <button type="submit"
+                                                    class="btn btn-success waves-effect custom_btn_class mx-2">
+                                                    <i class="fa fa-check"></i> Save
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Model content-->
+    {% endif %}
+</div>

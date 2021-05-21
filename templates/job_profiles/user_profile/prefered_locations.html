@@ -1,0 +1,122 @@
+<!-- Prefered Location Section -->
+<div class="row mt-5 mb-0">
+    <div class="col d-flex align-self-center">
+        <h5 class="font-medium float-left">Prefered Location
+
+            {% if userProfile == loggedInUser %}
+            <h5 class="d-inline" style="cursor: pointer;">
+                <i class="fas fa-plus text-primary custom_icon_class ml-2" data-toggle="modal"
+                    data-target="#add_new_location"></i>
+            </h5>
+            <!--Add New language button modal content -->
+            <div id="add_new_location" class="modal" tabindex="-1" role="dialog" aria-labelledby="vcenter"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header text-center bg-primary">
+                            <h3 class="modal-title font-weight-bold text-white" id="vcenter">
+                                Add a New Location</h3>
+                            <button type="button" class="close text-warning custom_icon_class" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card py-0 my-0">
+                                        <form action="{% url 'add_prefered_location' %}" method="POST">
+                                            {% csrf_token %}
+                                            <div class="form-body">
+                                                <div class="card-body my-0 py-0">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Prefered
+                                                                    Location</label>
+                                                                <input type="text" name="prefered_location"
+                                                                    class="form-control" required="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-actions">
+                                                    <div class="card-body my-0 py-0 pull-right">
+                                                        <button type="button"
+                                                            class="btn btn-warning waves-effect custom_btn_class mx-2"
+                                                            data-dismiss="modal">Cancel</button>
+
+                                                        <button type="submit"
+                                                            class="btn btn-success waves-effect custom_btn_class mx-2">
+                                                            <i class="fa fa-check"></i> Save
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal content -->
+            {% endif %}
+
+        </h5>
+
+
+    </div>
+</div>
+
+<hr class="mt-0 mb-1">
+
+<h6 class="mt-2">
+    {% for item in preferedLocations %}
+    {% if userProfile == loggedInUser %}
+    <h3 class="d-inline" style="cursor: pointer;">
+        <span class="badge badge-primary" data-toggle="modal"
+            data-target="#delete_location_{{item.id}}">{{item.prefered_location}} </span>
+    </h3>
+    <!-- Delete Location button modal content -->
+    <div id="delete_location_{{item.id}}" class="modal" tabindex="-1" role="dialog" aria-labelledby="vcenter"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h3 class="modal-title font-weight-bold" id="vcenter" style="color: rgb(207, 33, 33);">
+                        Warning!!</h3>
+                    <button type="button" class="close text-warning custom_icon_class" data-dismiss="modal"
+                        aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Are you sure you want to delete the location <strong> "{{item.prefered_location}}" </strong>?
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning waves-effect float-left custom_btn_class"
+                        data-dismiss="modal">Cancel</button>
+
+                    <form action="{% url 'delete_prefered_location' item.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit"
+                            class="btn btn-danger waves-effect custom_btn_class float-right">Confirm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal content -->
+    {% else %}
+    <h3 class="d-inline" style="cursor: pointer;">
+        <span class="badge badge-primary">{{item.prefered_location}} </span>
+    </h3>
+    {% endif %}
+
+    {% endfor %}
+</h6>

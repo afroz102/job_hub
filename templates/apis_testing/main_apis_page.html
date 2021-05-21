@@ -1,0 +1,46 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block title %}
+<title>APIs</title>
+{% endblock title %}
+
+{% block css %}
+<style>
+    .fas:hover {
+        transform: scale(1.5);
+        transition: .3s ease-out;
+    }
+
+    .custom_btn_class:hover {
+        transform: scale(1.1);
+        transition: .2s ease-out;
+    }
+</style>
+{% endblock css %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <div class="">
+                    <a type="button" class="btn btn-primary custom_btn_class mx-2" href="#">Gmail</a>
+                    <a type="button" class="btn btn-primary custom_btn_class mx-2"
+                        href="{% url 'calender_api' %}">Calender</a>
+                    <a type="button" class="btn btn-primary custom_btn_class mx-2" href="#">Google Sheets</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock page_content %}
+
+
+{% block custom_js %}
+<script>
+    $('.nav-item').removeClass('active');
+    $('.nav-item-2').addClass('active');
+</script>
+{% endblock custom_js %}
