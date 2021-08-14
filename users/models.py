@@ -4,14 +4,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# USERSTATUS = (
-#     ('1', 'Active'),
-#     ('0', 'Inactive'),
-# )
-# USERTYPE = (
-#     ('A', 'Admin'),
-#     ('U', 'User'),
-# )
+
 GENDER = (
     ('M', 'Male'),
     ('F', 'Female'),
@@ -28,8 +21,6 @@ class UserProfile(models.Model):
     location = models.CharField(max_length=250, blank=True)
     profile_img = models.ImageField(upload_to='profile_img/', blank=True)
 
-    # active_status = models.CharField(
-    #     max_length=20, choices=USERSTATUS, default='1')
     about_me = models.TextField(blank=True)
 
     is_verified = models.BooleanField(default=False)

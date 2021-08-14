@@ -130,77 +130,77 @@
         var form = '';
         var today = new Date($.now());
 
-        // Fetching calender event data
-        const url = '/fetch_calender_events/';
-        var defaultEvents = []
-        await fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'aplication/json',
-                "X-CSRFToken": '{{csrf_token}}'
-            },
-            body: JSON.stringify({
-                "msg": "Hello"
-            }),
-        }).then(response => {
-            // console.log(`response: `, response);
-            return response.json()
-        }).then(data => {
-            // console.log('Success: ', data.calender_data);
-            var arr = data.calender_data
-            for (let index = 0; index < arr.length; index++) {
-                var event = {
-                    title: arr[index].summary,
-                    start: arr[index].start.date,
-                    end: arr[index].end.date,
-                    className: 'bg-info',
-                }
-                defaultEvents[index] = event;
-            }
-        }).catch((error) => {
-            console.error('Error: ', error);
-        });
-
-        // var defaultEvents = [
-        //     {
-        //         title: 'Released Ample Admin!',
-        //         start: new Date($.now() + 506800000),
-        //         className: 'bg-info'
-        //     }, {
-        //         title: 'This is today check date',
-        //         start: today,
-        //         end: today,
-        //         className: 'bg-danger'
-        //     }, {
-        //         title: 'This is your birthday',
-        //         start: new Date($.now() + 848000000),
-        //         className: 'bg-info'
-        //     }, {
-        //         title: 'your meeting with john',
-        //         start: new Date($.now() - 1099000000),
-        //         end: new Date($.now() - 919000000),
-        //         className: 'bg-warning'
-        //     }, {
-        //         title: 'your meeting with john',
-        //         start: new Date($.now() - 1199000000),
-        //         end: new Date($.now() - 1199000000),
-        //         className: 'bg-purple'
-        //     }, {
-        //         title: 'your meeting with john',
-        //         start: new Date($.now() - 399000000),
-        //         end: new Date($.now() - 219000000),
-        //         className: 'bg-info'
+        // // Fetching calender event data
+        // const url = '/fetch_calender_events/';
+        // var defaultEvents = []
+        // await fetch(url, {
+        //     method: "POST",
+        //     headers: {
+        //         'Content-Type': 'aplication/json',
+        //         "X-CSRFToken": '{{csrf_token}}'
         //     },
-        //     {
-        //         title: 'Hanns birthday',
-        //         start: new Date($.now() + 868000000),
-        //         className: 'bg-danger'
-        //     }, {
-        //         title: 'Like it?',
-        //         start: new Date($.now() + 348000000),
-        //         className: 'bg-success'
+        //     body: JSON.stringify({
+        //         "msg": "Hello"
+        //     }),
+        // }).then(response => {
+        //     // console.log(`response: `, response);
+        //     return response.json()
+        // }).then(data => {
+        //     // console.log('Success: ', data.calender_data);
+        //     var arr = data.calender_data
+        //     for (let index = 0; index < arr.length; index++) {
+        //         var event = {
+        //             title: arr[index].summary,
+        //             start: arr[index].start.date,
+        //             end: arr[index].end.date,
+        //             className: 'bg-info',
+        //         }
+        //         defaultEvents[index] = event;
         //     }
-        // ];
+        // }).catch((error) => {
+        //     console.error('Error: ', error);
+        // });
+
+        var defaultEvents = [
+            {
+                title: 'Released Ample Admin!',
+                start: new Date($.now() + 506800000),
+                className: 'bg-info'
+            }, {
+                title: 'This is today check date',
+                start: today,
+                end: today,
+                className: 'bg-danger'
+            }, {
+                title: 'This is your birthday',
+                start: new Date($.now() + 848000000),
+                className: 'bg-info'
+            }, {
+                title: 'your meeting with john',
+                start: new Date($.now() - 1099000000),
+                end: new Date($.now() - 919000000),
+                className: 'bg-warning'
+            }, {
+                title: 'your meeting with john',
+                start: new Date($.now() - 1199000000),
+                end: new Date($.now() - 1199000000),
+                className: 'bg-purple'
+            }, {
+                title: 'your meeting with john',
+                start: new Date($.now() - 399000000),
+                end: new Date($.now() - 219000000),
+                className: 'bg-info'
+            },
+            {
+                title: 'Hanns birthday',
+                start: new Date($.now() + 868000000),
+                className: 'bg-danger'
+            }, {
+                title: 'Like it?',
+                start: new Date($.now() + 348000000),
+                className: 'bg-success'
+            }
+        ];
 
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({
